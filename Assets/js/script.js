@@ -1,4 +1,3 @@
-
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -9,6 +8,16 @@ $(function () {
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
+  const save = document.querySelectorAll(".saveBtn");
+  save.forEach(button => {
+    button.addEventListener("click", function () {
+    const timeBlock = this.closest(".time-block");
+    const timeBlockId = timeBlock.id;
+    const input = timeBlock.querySelector(".description").value;
+    localStorage.setItem(timeBlockId, input);
+    console.log(input)
+    });
+  });
 
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
@@ -24,13 +33,6 @@ $(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  // can't determine if this is saving input properly through console, moving on to current date display next
-$(".saveBtn").click(function () {
-  var input = $(this).siblings('.input').text()
-  var time = $(this).siblings('.hour').text()
-  localStorage.setItem(time, input)
-  console.log(time, input)
-})
 
   // TODO: Add code to display the current date in the header of the page.
   var today = dayjs();
